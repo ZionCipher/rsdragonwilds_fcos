@@ -1,5 +1,8 @@
 # RuneScape Dragonwilds Dedicated Server on Fedora CoreOS
 
+If this saved you some time: 
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-support-yellow?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/ZionCipher)
+
 ## Status
 
 The Quadlet and entrypoint are working and running in production on
