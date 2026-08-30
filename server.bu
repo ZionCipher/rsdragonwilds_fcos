@@ -1,0 +1,40 @@
+variant: fcos
+version: 1.7.0
+
+passwd:
+  users:
+    - name: core
+      groups:
+        - wheel
+      ssh_authorized_keys:
+        - ssh-key "CHANGEME"
+    - name: appuser
+      uid: 1100
+
+storage:
+  files:
+    - path: /etc/systemd/journald.conf.d/10-limits.conf
+      mode: 0644
+      contents:
+        inline: |
+          [Journal]
+          SystemMaxUse=1G
+          SystemMaxFileSize=128M
+          MaxRetentionSec=1month
+    - path: /etc/subuid
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: |
+          core:100000:65536
+          appuser:200000:65536
+    - path: /etc/subgid
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: |
+          core:100000:65536
+          appuser:200000:65536
+    - path: /var/lib/systemd/linger/appuser
+      mode: 0644
+  
