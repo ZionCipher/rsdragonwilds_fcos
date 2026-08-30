@@ -1,0 +1,24 @@
+[Unit]
+Description=Runescape Dragonwilds Dedicated Server
+Requires=var-mnt-data.mount
+After=var-mnt-data.mount network-online.target
+
+[Container]
+ContainerName=dragonwilds
+Image=docker.io/steamcmd/steamcmd:latest
+User=1000
+UserNS=keep-id:uid:1000:gid=1000
+EntryPoint=/dragonwilds/entrypoint.sh
+Environment=HOME=/dragonwilds
+Volume=/var/mnt/data/dragonwilds:/dragonwilds:z
+PublishPort=7777:7777/udp
+PublishPort=7778:7778/udp
+Memory=10G
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=10min
+
+[Install]
+WantedBy=multi-user.target default.target
