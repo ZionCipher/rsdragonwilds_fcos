@@ -12,6 +12,13 @@ passwd:
       uid: 1100
 
 storage:
+  directories:
+    - path: /var/home/appuser/.config/systemd/user
+      user:
+        name: appuser
+      group:
+        name: appuser
+      mode: 0755
   files:
     - path: /etc/systemd/journald.conf.d/10-limits.conf
       mode: 0644
@@ -37,4 +44,27 @@ storage:
           appuser:200000:65536
     - path: /var/lib/systemd/linger/appuser
       mode: 0644
+    - path: /var/home/appuser/.config/systemd/user/dragonwilds-restart.service
+      mode: 0644
+      contents:
+        inline: |
+          [Unit]
+          Description=Restart Dragonwilds
+
+          [Service]
+          Type=oneshot
+          ExecStart=/usr/bin/systemctl --user restart dragonwilds.service
+    - path: /var/home/appuser/.config/systemd/user/dragonwilds-restart.timer
+      mode: 0644
+      contents:
+        inline: |
+          [Unit]
+          Description= Daily Dragonwilds Restart
+
+          [Timer]
+          OnCalendar=*-*-* 05:00:00
+          Persistent=true
+
+          [Install]
+          WantedBy=timers.target
   
