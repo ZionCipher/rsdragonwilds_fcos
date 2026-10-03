@@ -13,11 +13,23 @@ passwd:
 
 storage:
   directories:
+    - path: /var/home/appuser/.config/containers/systemd
+      user:
+        id: 1100
+      group:
+        id: 1100
+      mode: 0755
     - path: /var/home/appuser/.config/systemd/user
       user:
-        name: appuser
+        id: 1100
       group:
-        name: appuser
+        id: 1100
+      mode: 0755
+    - path: /var/mnt/data/dragonwilds
+      user:
+        id: 1100
+      group:
+        id: 1100
       mode: 0755
   files:
     - path: /etc/systemd/journald.conf.d/10-limits.conf
@@ -44,7 +56,25 @@ storage:
           appuser:200000:65536
     - path: /var/lib/systemd/linger/appuser
       mode: 0644
+    - path: /var/home/appuser/.config/containers/systemd/dragonwilds.container
+      user:
+        id: 1100
+      group:
+        id: 1100
+      mode: 0644
+      contents_local: dragonwilds/dragonwilds.container
+    - path: /var/mnt/data/dragonwilds/entrypoint.sh
+      user:
+        id: 1100
+      group:
+        id: 1100
+      mode: 0644
+      contents_local: dragonwilds/entrypoint.sh
     - path: /var/home/appuser/.config/systemd/user/dragonwilds-restart.service
+      user:
+        id: 1100
+      group:
+        id: 1100
       mode: 0644
       contents:
         inline: |
@@ -55,6 +85,10 @@ storage:
           Type=oneshot
           ExecStart=/usr/bin/systemctl --user restart dragonwilds.service
     - path: /var/home/appuser/.config/systemd/user/dragonwilds-restart.timer
+      user:
+        id: 1100
+      group:
+        id: 1100
       mode: 0644
       contents:
         inline: |
